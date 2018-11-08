@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/reciveName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이름"
+        android:textSize="15sp"
+        android:layout_marginLeft="15dp"
+        />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/reciveName"
+        android:id="@+id/reciveChat"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:text="안녕"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_chat"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+       />
+
+    <TextView
+        android:id="@+id/reciveTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="5dp"
+        android:textSize="10sp"
+        app:layout_constraintLeft_toRightOf="@id/reciveChat"
+        android:text="오전7시35분"/>
+
+</android.support.constraint.ConstraintLayout>
