@@ -8,6 +8,11 @@
         app:showAsAction="never" />
 
     <item
+    android:id="@+id/userInfoChange"
+    android:title="설정"
+    app:showAsAction="never" />
+
+    <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="검색"

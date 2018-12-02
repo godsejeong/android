@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class LecutureInfoActivity extends AppCompatActivity {
     PultusORM orm;
-    Button btn1,btn2,btn3;
+    Button btn1,btn2,btn3,btn4;
     TextView teachername,lecutrename;
     ImageView imageView;
     String name,mytoken,professor,classname,professorname,imageurl,yourtoken;
@@ -39,6 +39,7 @@ public class LecutureInfoActivity extends AppCompatActivity {
         btn1 = findViewById(R.id.infoChat);
         btn2 = findViewById(R.id.infoQA);
         btn3 = findViewById(R.id.infoAttendance);
+        btn4 = findViewById(R.id.infoDel);
         teachername = findViewById(R.id.infoteacher);
         lecutrename = findViewById(R.id.infolectureName);
         imageView = findViewById(R.id.infoImage);
@@ -96,6 +97,31 @@ public class LecutureInfoActivity extends AppCompatActivity {
                     Log.e("LectureExist2Error",t.getMessage());
                 }
             });
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<BasicData> res = new Utils().postservice.leaveLecture(professor,mytoken);
+                res.enqueue(new Callback<BasicData>() {
+                    @Override
+                    public void onResponse(Call<BasicData> call, Response<BasicData> response) {
+                        if(response.code() == 200){
+                            Toast.makeText(getApplicationContext(), "강의 탈퇴가 완료되었습니다.", Toast.LENGTH_LONG).show();
+                            finish();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
+                            Log.e("code", String.valueOf(response.code()));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BasicData> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
+                        Log.e("leaveLectureError",t.getMessage());
+                    }
+                });
+            }
         });
     }
 

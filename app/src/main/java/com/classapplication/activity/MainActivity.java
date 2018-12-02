@@ -145,6 +145,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.search:
                 startActivity(new Intent(getApplicationContext(), SearchActivity.class));
                 break;
+
+            case R.id.userInfoChange:
+                startActivity(new Intent(getApplicationContext(), UserSettingActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

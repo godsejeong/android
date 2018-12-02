@@ -38,9 +38,15 @@
             android:name=".service.ChatService"
             android:exported="true" />
 
-        <activity android:name=".activity.LecutureInfoActivity"
-            android:theme="@style/NoActionBar"/>
-        <activity android:name=".activity.CalendarActivity"
+        <activity
+            android:name=".activity.LecutureInfoActivity"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".activity.CalendarActivity"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".activity.UserSettingActivity"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".activity.UserinfoChangeActivity"
             android:theme="@style/NoActionBar"></activity>
     </application>
 

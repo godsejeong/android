@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    tools:context=".activity.UserSettingActivity">
+
+    <TextView
+        android:id="@+id/userSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="유저 설정"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/userChangeTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원정보 수정"
+        android:layout_marginTop="30dp"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/userSetting"/>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/userChangeTv"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/WithdrawalTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원 탈퇴"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/view1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/WithdrawalTv"
+        android:layout_marginTop="10dp"
+        />
+
+</android.support.constraint.ConstraintLayout>

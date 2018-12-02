@@ -50,6 +50,8 @@ public class StudentAdapter extends BaseAdapter{
         Button btn1 = convertView.findViewById(R.id.studentBtn1);
         Button btn2 = convertView.findViewById(R.id.studentBtn2);
         Button btn3 = convertView.findViewById(R.id.studentBtn3);
+        Button btn4 = convertView.findViewById(R.id.studentBtn4);
+
         final TextView name = convertView.findViewById(R.id.studentTv);
         final StudentListItem data = items.get(position);
         name.setText(data.getName());
@@ -57,14 +59,21 @@ public class StudentAdapter extends BaseAdapter{
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(position,true);
+                check(position,"1");
             }
         });
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(position,false);
+                check(position,"0");
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                check(position,"2");
             }
         });
 
@@ -85,12 +94,8 @@ public class StudentAdapter extends BaseAdapter{
         return convertView;
     }
 
-    public void check(int position,boolean bool){
-        if(bool){
-            items.get(position).setAttendance("1");
-        }else{
-            items.get(position).setAttendance("0");
-        }
+    public void check(int position,String str){
+            items.get(position).setAttendance(str);
 
         Log.e("check",items.get(position).getAttendance());
     }

@@ -58,8 +58,9 @@ public class CalendarActivity extends AppCompatActivity {
                             events.add(new EventDay(calendar1, R.drawable.ic_check_false_24dp));
                         } else if(response.body().getList().get(i).getAttendance().equals("1")){
                             events.add(new EventDay(calendar1, R.drawable.ic_check_true_24dp));
+                        } else if(response.body().getList().get(i).getAttendance().equals("2")){
+                            events.add(new EventDay(calendar1, R.drawable.ic_check_black_24dp));
                         }
-
                     }
 
                     calendarView.setEvents(events);

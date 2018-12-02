@@ -62,4 +62,21 @@ public interface Services {
     @POST("/chkAttendance")
     Call<CalendarData>CalnedarAttendance(@Field("token")String token,
                                     @Field("lectureToken")String lectureToken);
+
+    @FormUrlEncoded
+    @POST("/signdel")
+    Call<BasicData>SignDel(@Field("token")String token);
+
+    @FormUrlEncoded
+    @POST("/signmodify")
+    Call<UserData>SignModify(@Field("token")String token,
+                              @Field("name")String name,
+                              @Field("passwd")String passwd);
+
+    @FormUrlEncoded
+    @POST("/leaveLecture")
+    Call<BasicData>leaveLecture(@Field("lectureToken")String lectureToken,
+                                @Field("token")String token);
+
+
 }
