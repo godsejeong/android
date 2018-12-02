@@ -56,10 +56,8 @@ public class UserSettingActivity extends AppCompatActivity {
                         if(response.code() == 200){
                             Toast.makeText(getApplicationContext(), "회원 탈퇴가 완료되었습니다.", Toast.LENGTH_LONG).show();
                             orm.delete(new UserData());
-                            stopService(new Intent(getApplicationContext(),ChatService.class));
-                            finishAffinity();
-                            System.runFinalization();
-                            System.exit(0);
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            finish();
                         }else{
                             Toast.makeText(getApplicationContext(), "오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
                             Log.e("code", String.valueOf(response.code()));
