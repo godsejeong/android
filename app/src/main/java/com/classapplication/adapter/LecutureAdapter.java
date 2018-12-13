@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.classapplication.activity.LecutureInfoActivity;
 import com.classapplication.R;
+import com.classapplication.activity.LecuturePagerActivity;
 import com.classapplication.activity.StudentActivity;
 import com.classapplication.data.LectureListData;
 
@@ -107,7 +108,7 @@ public class LecutureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 myholder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(myholder.itemView.getContext(), StudentActivity.class);
+                        Intent intent = new Intent(myholder.itemView.getContext(), LecuturePagerActivity.class);
                         intent.putExtra("token", data.getToken());
                         myholder.itemView.getContext().startActivity(intent);
                     }

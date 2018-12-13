@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.e("ASdfasdf", new Gson().toJson(obj.getList()));
 
+
                         for (int i = 0; i < obj.getList().size(); i++) {
 
                             items.add(new LectureListData(

@@ -6,12 +6,18 @@ import com.classapplication.data.MyLectureData;
 import com.classapplication.data.LectureData;
 import com.classapplication.data.StudentData;
 import com.classapplication.data.UserData;
+import com.classapplication.data.VideoData;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+
 public interface Services {
 
     @FormUrlEncoded
@@ -78,5 +84,14 @@ public interface Services {
     Call<BasicData>leaveLecture(@Field("lectureToken")String lectureToken,
                                 @Field("token")String token);
 
+    @Multipart
+    @POST("/addVideo")
+    Call<BasicData>addVideo(@Part MultipartBody.Part video,
+                            @Part("token") RequestBody token,
+                            @Part("title") RequestBody title);
+
+    @FormUrlEncoded
+    @POST("/videoList")
+    Call<VideoData>VideoList(@Field("token")String token);
 
 }

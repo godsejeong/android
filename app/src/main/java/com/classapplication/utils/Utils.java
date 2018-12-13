@@ -1,6 +1,11 @@
 package com.classapplication.utils;
 
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -14,4 +19,9 @@ public class Utils {
             .build();
 
     public Services postservice = retrofit.create(Services.class);
+
+    public static MultipartBody.Part createMultipartBody(File file, String name) {
+        final RequestBody mFile = RequestBody.create(MediaType.parse("video/*"), file);
+        return MultipartBody.Part.createFormData(name, file.getName(), mFile);
+    }
 }

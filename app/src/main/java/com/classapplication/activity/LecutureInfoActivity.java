@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class LecutureInfoActivity extends AppCompatActivity {
     PultusORM orm;
-    Button btn1,btn2,btn3,btn4;
+    Button btn1,btn2,btn3,btn4,btn5;
     TextView teachername,lecutrename;
     ImageView imageView;
     String name,mytoken,professor,classname,professorname,imageurl,yourtoken;
@@ -40,6 +40,7 @@ public class LecutureInfoActivity extends AppCompatActivity {
         btn2 = findViewById(R.id.infoQA);
         btn3 = findViewById(R.id.infoAttendance);
         btn4 = findViewById(R.id.infoDel);
+        btn5 = findViewById(R.id.infoVideo);
         teachername = findViewById(R.id.infoteacher);
         lecutrename = findViewById(R.id.infolectureName);
         imageView = findViewById(R.id.infoImage);
@@ -123,7 +124,18 @@ public class LecutureInfoActivity extends AppCompatActivity {
                 });
             }
         });
+
+    btn5.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent=  new Intent(getApplicationContext(),VideoActivity.class);
+            intent.putExtra("lecuturetoken",professor);
+            startActivity(intent);
+        }
+    });
     }
+
+
 
     void lecutruejoin(){
         Call<BasicData> res = new Utils().postservice.Lecturejoin(professor,mytoken);

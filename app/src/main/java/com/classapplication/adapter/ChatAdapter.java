@@ -87,9 +87,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 viewHolder2.name.setText(data.getName());
                 break;
         }
-
     }
-
 
     @Override
     public int getItemCount() {

@@ -61,12 +61,21 @@
         android:text="출결"/>
 
         <Button
+            android:id="@+id/infoVideo"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="인강듣기"/>
+
+        <Button
             android:id="@+id/infoDel"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="강의 탈퇴"/>
+
 
     <ImageView
         android:id="@+id/infoImage"
