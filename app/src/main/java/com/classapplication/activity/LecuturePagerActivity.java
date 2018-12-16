@@ -1,6 +1,6 @@
 package com.classapplication.activity;
 
-import android.app.Activity;
+
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -18,22 +18,25 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.MediaController;
 import android.widget.Toast;
 
 import com.classapplication.R;
+import com.classapplication.adapter.VideoAdapter;
 import com.classapplication.data.BasicData;
-import com.classapplication.data.UserData;
+import com.classapplication.data.VideoData;
+import com.classapplication.data.VideoItem;
+import com.classapplication.data.VideoListItem;
 import com.classapplication.utils.Utils;
 
 import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
-import ninja.sakib.pultusorm.core.PultusORM;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -43,6 +46,8 @@ import retrofit2.Response;
 public class LecuturePagerActivity extends AppCompatActivity {
     Button studentInfo, videoUpload, lecutureFix, lecutureRemove;
     RecyclerView recyclerView;
+    ArrayList<VideoListItem> item = new ArrayList<>();
+    VideoAdapter adapter;
     File file;
 
     @Override
@@ -54,9 +59,13 @@ public class LecuturePagerActivity extends AppCompatActivity {
         lecutureFix = findViewById(R.id.lecuturePagerFix);
         lecutureRemove = findViewById(R.id.lecuturePagerRemove);
         videoUpload = findViewById(R.id.lecuturePagerUpload);
+        recyclerView  = findViewById(R.id.lecuturePagerRecycler);
 
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
 
-
+        adapter = new VideoAdapter(item);
+        recyclerView.setAdapter(adapter);
 
         studentInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +82,31 @@ public class LecuturePagerActivity extends AppCompatActivity {
                 getPermission();
             }
         });
+
+        Call<VideoData> res = new Utils().postservice.VideoList(getIntent().getStringExtra("token"));
+        res.enqueue(new Callback<VideoData>() {
+            @Override
+            public void onResponse(Call<VideoData> call, Response<VideoData> response) {
+                if (response.code() == 200) {
+                    for (int i = 0; i < response.body().getList().size(); i++) {
+                        VideoItem data = response.body().getList().get(i);
+                        item.add(new VideoListItem(data.getTitle(),data.getDate(),data.getLink(),true));
+                    }
+                    adapter.notifyDataSetChanged();
+                    Log.e("lecutureVideo","Update");
+                } else {
+                    Log.e("lecutureVideo","Fail");
+                    Toast.makeText(getApplicationContext(), "동영상을 불러오는 도중에 오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VideoData> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
+                Log.e("lecuturevideoError",t.getMessage());
+            }
+        });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -117,20 +151,6 @@ public class LecuturePagerActivity extends AppCompatActivity {
     }
 
 
-//    private String getRealPathFromURIPath(Uri contentURI) {
-//        Cursor cursor = null;
-//        try {
-//            String[] proj = { MediaStore.Images.Media.DATA };
-//            cursor = getApplicationContext().getContentResolver().query(contentURI,  proj, null, null, null);
-//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//            cursor.moveToFirst();
-//            return cursor.getString(column_index);
-//        } finally {
-//            if (cursor != null) {
-//                cursor.close();
-//            }
-//        }
-//    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String getPath(final Context context, final Uri uri) {
@@ -236,9 +256,8 @@ public class LecuturePagerActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(this, "동영상을 등록하시려면 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
             }
+        }
     }
-}
-
 }
 
 

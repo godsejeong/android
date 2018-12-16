@@ -41,8 +41,8 @@ public class LecutureInfoActivity extends AppCompatActivity {
         btn3 = findViewById(R.id.infoAttendance);
         btn4 = findViewById(R.id.infoDel);
         btn5 = findViewById(R.id.infoVideo);
-        teachername = findViewById(R.id.infoteacher);
-        lecutrename = findViewById(R.id.infolectureName);
+//        teachername = findViewById(R.id.infoteacher);
+//        lecutrename = findViewById(R.id.infolectureName);
         imageView = findViewById(R.id.infoImage);
 
         String path = getApplicationContext().getFilesDir().getAbsolutePath();
@@ -59,8 +59,6 @@ public class LecutureInfoActivity extends AppCompatActivity {
         lecutrename.setText(classname);
         teachername.setText(professorname);
         Glide.with(this).load(imageurl).into(imageView);
-
-
 
         btn1.setOnClickListener(v -> {
                     Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
@@ -134,8 +132,6 @@ public class LecutureInfoActivity extends AppCompatActivity {
         }
     });
     }
-
-
 
     void lecutruejoin(){
         Call<BasicData> res = new Utils().postservice.Lecturejoin(professor,mytoken);
