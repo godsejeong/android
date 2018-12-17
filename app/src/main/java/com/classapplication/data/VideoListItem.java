@@ -4,13 +4,23 @@ public class VideoListItem {
     private String title;
     private String date;
     private String link;
+    private String token;
     private boolean bl;
 
-    public VideoListItem(String title,String date,String link,boolean bl){
+    public VideoListItem(String title,String date,String link,String token,boolean bl){
         this.title = title;
         this.date= date;
         this.link = link;
+        this.token = token;
         this.bl= bl;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getLink() {

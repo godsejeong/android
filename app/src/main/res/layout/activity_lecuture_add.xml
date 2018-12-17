@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.LecutureInfoActivity">
-
+    tools:context=".activity.LecutureAddActivity">
 
     <LinearLayout
+
         android:id="@+id/lecutureContentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -28,13 +28,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/lecutureName"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/lecutureAddName"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="강의명"
+                android:gravity="center|left"
+                android:hint="강의명"
+                android:background="#00ff0000"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -47,7 +48,7 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp">
 
@@ -58,13 +59,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/lecutureName2"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/lecutureAddName2"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="강사명"
+                android:gravity="center|left"
+                android:hint="강사명"
+                android:background="#00ff0000"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -77,7 +79,7 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp">
 
@@ -88,13 +90,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/lecutureSort"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/lecutureAddSort"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="분류"
+                android:gravity="center|left"
+                android:hint="분류"
+                android:background="#00ff0000"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -107,24 +110,25 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="요일시간"
+                android:text="요일"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/lecutureDate"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/lecutureAddDate"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="요일시"
+                android:gravity="center|left"
+                android:hint="요일"
+                android:background="#00ff0000"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -137,7 +141,41 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시간"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/lecutureAddtime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+
+                android:gravity="center|left"
+                android:hint="시간"
+                android:background="#00ff0000"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp">
 
@@ -148,13 +186,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/lecutureMaxStudent"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/lecutureMaxAddStudent"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="최대인원"
+                android:gravity="center|left"
+                android:hint="최대인원"
+                android:background="#00ff0000"
                 android:textSize="18sp" />
 
 
@@ -167,38 +206,10 @@
             android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray" />
 
+
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="현재인원"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/lecutureCurrentStudent"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="현재인원"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp">
 
@@ -209,13 +220,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/lecuturePeriod"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/lecutureAddPeriod"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="기간"
+                android:gravity="center|left"
+                android:hint="기간"
+                android:background="#00ff0000"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -229,67 +241,14 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/lecutureButtonLayout"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/addBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/lecutureContentLayout">
+        android:text="강의추가"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lecutureContentLayout"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_margin="5dp"
-            android:orientation="horizontal">
-
-
-            <Button
-                android:id="@+id/infoQA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="강의 신청"
-                android:textSize="15sp" />
-
-            <Button
-                android:id="@+id/infoDel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="강의 탈퇴"
-                android:layout_marginLeft="10dp"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_margin="5dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/infoAttendance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="출결"
-                android:textSize="15sp" />
-
-            <Button
-                android:id="@+id/infoChat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="채팅"
-                android:layout_marginLeft="10dp"
-                android:textSize="15sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/lecutureRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
-    </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>

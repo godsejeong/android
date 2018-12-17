@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classapplication.R;
@@ -33,9 +34,13 @@ import com.classapplication.data.VideoData;
 import com.classapplication.data.VideoItem;
 import com.classapplication.data.VideoListItem;
 import com.classapplication.utils.Utils;
+import com.google.gson.Gson;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -45,6 +50,7 @@ import retrofit2.Response;
 
 public class LecuturePagerActivity extends AppCompatActivity {
     Button studentInfo, videoUpload, lecutureFix, lecutureRemove;
+    TextView lecuturePagerName, lecuturePagerName2, lecuturePagerSort, lecuturePagerDate, lecuturePagerMaxStudent, lecuturePagerCurrentStudent, lecuturePagerPeriod;
     RecyclerView recyclerView;
     ArrayList<VideoListItem> item = new ArrayList<>();
     VideoAdapter adapter;
@@ -59,13 +65,83 @@ public class LecuturePagerActivity extends AppCompatActivity {
         lecutureFix = findViewById(R.id.lecuturePagerFix);
         lecutureRemove = findViewById(R.id.lecuturePagerRemove);
         videoUpload = findViewById(R.id.lecuturePagerUpload);
-        recyclerView  = findViewById(R.id.lecuturePagerRecycler);
+        recyclerView = findViewById(R.id.lecuturePagerRecycler);
+
+        lecuturePagerName = findViewById(R.id.lecuturePagerName);
+        lecuturePagerName2 = findViewById(R.id.lecuturePagerName2);
+        lecuturePagerSort = findViewById(R.id.lecuturePagerSort);
+        lecuturePagerDate = findViewById(R.id.lecuturePagerDate);
+        lecuturePagerMaxStudent = findViewById(R.id.lecuturePagerMaxStudent);
+        lecuturePagerCurrentStudent = findViewById(R.id.lecuturePagerCurrentStudent);
+        lecuturePagerPeriod = findViewById(R.id.lecuturePagerPeriod);
+
+        String token = getIntent().getStringExtra("token");
+        String professorname = getIntent().getStringExtra("professorname");
+        String courseTitle = getIntent().getStringExtra("courseTitle");
+        String date = getIntent().getStringExtra("date");
+        String time = getIntent().getStringExtra("time");
+        int maxmember = getIntent().getIntExtra("maxmember", 0);
+        String Category = getIntent().getStringExtra("Category");
+        String term = getIntent().getStringExtra("term");
+        int currentMember = getIntent().getIntExtra("currentMember", 0);
+
+        lecuturePagerName.setText(courseTitle);
+        lecuturePagerName2.setText(professorname);
+        lecuturePagerSort.setText(Category);
+        lecuturePagerDate.setText(date + " " + time);
+        lecuturePagerMaxStudent.setText(String.valueOf(maxmember));
+        lecuturePagerCurrentStudent.setText(String.valueOf(currentMember));
+        lecuturePagerPeriod.setText(term);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
         adapter = new VideoAdapter(item);
         recyclerView.setAdapter(adapter);
+
+        lecutureRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retrofit2.Call<BasicData> res = new Utils().postservice.delLecture(token);
+                res.enqueue(new Callback<BasicData>() {
+                    @Override
+                    public void onResponse(Call<BasicData> call, Response<BasicData> response) {
+                        if(response.code() == 200){
+                            Toast.makeText(getApplicationContext(), "삭제에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Log.e("responsecode", String.valueOf(response.code()));
+                            Toast.makeText(getApplicationContext(), "삭제를 실패하였습니다.", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BasicData> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
+                        Log.e("deleteError",t.getMessage());
+                    }
+                });
+
+            }
+        });
+
+        lecutureFix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LecutureAddActivity.class);
+                intent.putExtra("add", false);
+                intent.putExtra("courseTitle", courseTitle);
+                intent.putExtra("Category", Category);
+                intent.putExtra("professorname", professorname);
+                intent.putExtra("date", date);
+                intent.putExtra("time", time);
+                intent.putExtra("token", token);
+                intent.putExtra("maxmember", String.valueOf(maxmember));
+                intent.putExtra("term", term);
+                startActivityForResult(intent, 200);
+            }
+        });
 
         studentInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,19 +159,25 @@ public class LecuturePagerActivity extends AppCompatActivity {
             }
         });
 
+        Log.e("token", getIntent().getStringExtra("token"));
+
         Call<VideoData> res = new Utils().postservice.VideoList(getIntent().getStringExtra("token"));
         res.enqueue(new Callback<VideoData>() {
             @Override
             public void onResponse(Call<VideoData> call, Response<VideoData> response) {
                 if (response.code() == 200) {
                     for (int i = 0; i < response.body().getList().size(); i++) {
-                        VideoItem data = response.body().getList().get(i);
-                        item.add(new VideoListItem(data.getTitle(),data.getDate(),data.getLink(),true));
+                        Log.e("list", new Gson().toJson(response.body().getList().get(i)));
+                        item.add(new VideoListItem(response.body().getList().get(i).getTitle(),
+                                response.body().getList().get(i).getDate(),
+                                response.body().getList().get(i).getLink(),
+                                getIntent().getStringExtra("token"),
+                                true));
                     }
                     adapter.notifyDataSetChanged();
-                    Log.e("lecutureVideo","Update");
+                    Log.e("lecutureVideo", "Update");
                 } else {
-                    Log.e("lecutureVideo","Fail");
+                    Log.e("lecutureVideo", "Fail");
                     Toast.makeText(getApplicationContext(), "동영상을 불러오는 도중에 오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
                 }
             }
@@ -103,7 +185,7 @@ public class LecuturePagerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<VideoData> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
-                Log.e("lecuturevideoError",t.getMessage());
+                Log.e("lecuturevideoError", t.getMessage());
             }
         });
 
@@ -114,42 +196,66 @@ public class LecuturePagerActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.e("upload1","Result");
-        if(resultCode == RESULT_OK) {
+        Log.e("upload1", "Result");
+        if (resultCode == RESULT_OK) {
             if (requestCode == 100) {
-                Log.e("upload","OK");
+                Log.e("upload", "OK");
                 Log.e("uploadfile", String.valueOf(data.getData()));
-                file = new File(getPath(getApplicationContext(),data.getData()));
+                file = new File(getPath(getApplicationContext(), data.getData()));
                 Log.e("file", String.valueOf(file));
-                Upload(file,RequestBody.create(MediaType.parse("text/plain"),getIntent().getStringExtra("token")));
+                Upload(file, RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("token")));
+            }else if(requestCode == 200){
+                Log.e("왜 안","ㅁㄴㅇㄹㅁㄴㅇㄹ");
+                String professorname = data.getStringExtra("professorname");
+                String courseTitle = data.getStringExtra("courseTitle");
+                String date = data.getStringExtra("date");
+                String time = data.getStringExtra("time");
+                String maxmember = data.getStringExtra("maxmember");
+                String Category = data.getStringExtra("Category");
+                String term = data.getStringExtra("term");
+
+                lecuturePagerName.setText(courseTitle);
+                lecuturePagerName2.setText(professorname);
+                lecuturePagerSort.setText(Category);
+                lecuturePagerDate.setText(date + " " + time);
+                lecuturePagerMaxStudent.setText(String.valueOf(maxmember));
+                lecuturePagerPeriod.setText(term);
             }
+
+
         }
     }
 
     private void Upload(File file, RequestBody token) {
         Log.e("testtoken", String.valueOf(token));
-        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"),file.getName());
-        Call<BasicData> res = new Utils().postservice.addVideo(Utils.createMultipartBody(file,"video"),token,filename);
+        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+
+        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
+        Date currentTime = new Date();
+        String mTime = mSimpleDateFormat.format(currentTime);
+
+        RequestBody date = RequestBody.create(MediaType.parse("text/plain"), mTime);
+
+        Call<BasicData> res = new Utils().postservice.addVideo(Utils.createMultipartBody(file, "video"), token, filename, date);
         res.enqueue(new Callback<BasicData>() {
             @Override
             public void onResponse(Call<BasicData> call, Response<BasicData> response) {
-                if(response.code() == 200){
+                if (response.code() == 200) {
                     Toast.makeText(getApplicationContext(), "업로드를 성공하였습니다.", Toast.LENGTH_LONG).show();
-                    Log.e("videouploadserver","ok");
-                }else{
+                    Log.e("videouploadserver", "ok");
+                } else {
                     Toast.makeText(getApplicationContext(), "업로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
-                    Log.e("VideoUpload"+String.valueOf(response.code()),response.message());
+                    Log.e("VideoUpload" + String.valueOf(response.code()), response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<BasicData> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
-                Log.e("UploadError",t.getMessage());
+                Log.e("UploadError", t.getMessage());
             }
         });
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -164,8 +270,7 @@ public class LecuturePagerActivity extends AppCompatActivity {
                 if ("primary".equalsIgnoreCase(type)) {
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
                 }
-            }
-            else if (isDownloadsDocument(uri)) {
+            } else if (isDownloadsDocument(uri)) {
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
                         Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
@@ -187,17 +292,15 @@ public class LecuturePagerActivity extends AppCompatActivity {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
+                final String[] selectionArgs = new String[]{
                         split[1]
                 };
 
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
-        }
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
             return getDataColumn(context, uri, null, null);
-        }
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
 
@@ -234,26 +337,23 @@ public class LecuturePagerActivity extends AppCompatActivity {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
-    public void getPermission()
-    {
+    public void getPermission() {
         if ((ContextCompat.checkSelfPermission(LecuturePagerActivity.this, android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_DENIED))
 
             ActivityCompat.requestPermissions(LecuturePagerActivity.this,
-                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},0);
+                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
-        if (requestCode == 0)
-        {
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 0) {
             if (grantResults[0] == 0) {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.setType("video/*");
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(i, 100);
-            }else{
+            } else {
                 Toast.makeText(this, "동영상을 등록하시려면 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
             }
         }

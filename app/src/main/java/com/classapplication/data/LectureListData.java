@@ -1,28 +1,65 @@
 package com.classapplication.data;
 
 public class LectureListData {
-    private String name;
-    private String day;
-    private String room;
+    private String courseTitle;
+    private String date;
+    private String category;
     private String token;
     private String professor;
     private boolean viewtype;
     private String studentToken;
-    private String img;
     private String professorToken;
+    private int maxMember;
+    private String time;
+    private String term;
+    private int currentMember;
 
-    public LectureListData(String name, String day, String room, String professor, String token, String studentToken, String img, String professorToken, boolean viewtype) {
-        this.name = name;
-        this.day = day;
-        this.room = room;
+    public LectureListData(String courseTitle, String date, String category, String professor, String token, String time, int maxMember, String term, String studentToken, String professorToken, int currentMember, boolean viewtype) {
+        this.courseTitle = courseTitle;
+        this.date = date;
+        this.category = category;
         this.professor = professor;
         this.viewtype = viewtype;
         this.token =token;
+        this.currentMember = currentMember;
         this.studentToken = studentToken;
-        this.img =img;
+        this.time =time;
+        this.maxMember = maxMember;
+        this.term = term;
         this.professorToken = professorToken;
     }
 
+    public int getMaxMember() {
+        return maxMember;
+    }
+
+    public void setMaxMember(int maxMember) {
+        this.maxMember = maxMember;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public int getCurrentMember() {
+        return currentMember;
+    }
+
+    public void setCurrentMember(int currentMember) {
+        this.currentMember = currentMember;
+    }
 
     public String getProfessorToken() {
         return professorToken;
@@ -30,14 +67,6 @@ public class LectureListData {
 
     public void setProfessorToken(String professorToken) {
         this.professorToken = professorToken;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
     public String getStudentToken() {
@@ -65,28 +94,32 @@ public class LectureListData {
         this.viewtype = viewtype;
     }
 
-    public String getName() {
-        return name;
+    public String getCourseTitle() {
+        return courseTitle;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
     }
 
-    public String getDay() {
-        return day;
+    public boolean isViewtype() {
+        return viewtype;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public String getDate() {
+        return date;
     }
 
-    public String getRoom() {
-        return room;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getProfessor() {

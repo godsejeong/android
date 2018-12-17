@@ -88,10 +88,56 @@ public interface Services {
     @POST("/addVideo")
     Call<BasicData>addVideo(@Part MultipartBody.Part video,
                             @Part("token") RequestBody token,
-                            @Part("title") RequestBody title);
+                            @Part("title") RequestBody title,
+                            @Part("date") RequestBody date);
 
     @FormUrlEncoded
     @POST("/videoList")
     Call<VideoData>VideoList(@Field("token")String token);
+
+
+    @FormUrlEncoded
+    @POST("/delVideo")
+    Call<BasicData>delVideo(@Field("token")String token,
+                            @Field("title")String title);
+
+    @FormUrlEncoded
+    @POST("/newLecture")
+    Call<BasicData>newLecture(@Field("courseTitle")String courseTitle,
+                            @Field("professor")String professor,
+                            @Field("token")String token,
+                            @Field("category")String category,
+                            @Field("date")String date,
+                            @Field("time")String time,
+                            @Field("maxMember")int maxMember,
+                            @Field("term")String term);
+    @FormUrlEncoded
+    @POST("/setLecture")
+    Call<BasicData>setLecture(@Field("courseTitle")String courseTitle,
+                              @Field("professor")String professor,
+                              @Field("token")String token,
+                              @Field("category")String category,
+                              @Field("date")String date,
+                              @Field("time")String time,
+                              @Field("maxMember")int maxMember,
+                              @Field("term")String term,
+                              @Field("lectureToken")String lectureToken);
+
+    @FormUrlEncoded
+    @POST("/delLecture")
+    Call<BasicData>delLecture(@Field("token")String token);
+
+    @FormUrlEncoded
+    @POST("/getPro")
+    Call<MyLectureData>getPro(@Field("token")String token);
+
+    @FormUrlEncoded
+    @POST("/getWeb")
+    Call<MyLectureData>getWeb(@Field("token")String token);
+
+    @FormUrlEncoded
+    @POST("/getNet")
+    Call<MyLectureData>getNet(@Field("token")String token);
+
 
 }

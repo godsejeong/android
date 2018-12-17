@@ -80,10 +80,10 @@ public class LecutureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (viewHolder.getItemViewType()) {
             case 0:
                 final LecutureAdapter.ViewHolder holder = (ViewHolder) viewHolder;
-                holder.dayTv.setText(data.getDay());
-                holder.roomTv.setText(data.getRoom());
+                holder.dayTv.setText(data.getDate());
+                holder.roomTv.setText(data.getCategory());
                 holder.professorTv.setText(data.getProfessor());
-                holder.NameTv.setText(data.getName());
+                holder.NameTv.setText(data.getCourseTitle());
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -93,23 +93,38 @@ public class LecutureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         intent.putExtra("mytoken",data.getStudentToken());
                         intent.putExtra("professor",data.getToken());
                         intent.putExtra("student",true);
-                        intent.putExtra("classname",data.getName());
+                        intent.putExtra("classname",data.getCourseTitle());
                         intent.putExtra("professorname",data.getProfessor());
-                        intent.putExtra("imageurl",data.getImg());
                         intent.putExtra("yourtoken",data.getProfessorToken());
+
+                        intent.putExtra("date",data.getDate());
+                        intent.putExtra("time",data.getTime());
+                        intent.putExtra("maxmember",data.getMaxMember());
+                        intent.putExtra("Category",data.getCategory());
+                        intent.putExtra("term",data.getTerm());
+                        intent.putExtra("currentMember",data.getCurrentMember());
                         holder.itemView.getContext().startActivity(intent);
                     }
                 });
                 break;
             case 1:
                 final LecutureAdapter.MyViewHolder myholder = (MyViewHolder) viewHolder;
-                myholder.dayTv.setText(data.getDay());
-                myholder.NameTv.setText(data.getName());
+                myholder.dayTv.setText(data.getDate());
+                myholder.NameTv.setText(data.getCourseTitle());
                 myholder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(myholder.itemView.getContext(), LecuturePagerActivity.class);
                         intent.putExtra("token", data.getToken());
+                        intent.putExtra("courseTitle",data.getCourseTitle());
+                        intent.putExtra("date",data.getDate());
+                        intent.putExtra("time",data.getTime());
+                        intent.putExtra("maxmember",data.getMaxMember());
+                        intent.putExtra("Category",data.getCategory());
+                        intent.putExtra("term",data.getTerm());
+                        intent.putExtra("professorname",data.getProfessor());
+                        intent.putExtra("currentMember",data.getCurrentMember());
+//                        intent.putExtra("")
                         myholder.itemView.getContext().startActivity(intent);
                     }
                 });

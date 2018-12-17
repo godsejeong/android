@@ -81,12 +81,15 @@ public class SearchActivity extends AppCompatActivity {
                                     items.add(new LectureListData(
                                             obj.getList().get(i).getCourseTitle(),
                                             obj.getList().get(i).getDate(),
-                                            obj.getList().get(i).getLectureRoom(),
+                                            obj.getList().get(i).getCategory(),
                                             obj.getList().get(i).getProfessor(),
                                             obj.getList().get(i).getToken(),
+                                            obj.getList().get(i).getTime(),
+                                            obj.getList().get(i).getMaxMember(),
+                                            obj.getList().get(i).getTerm(),
                                             user.getToken(),
-                                            obj.getList().get(i).getImg(),
                                             obj.getList().get(i).getProfessorToken(),
+                                            obj.getList().get(i).getCurrentMember(),
                                             true));
                                 }
                                 adapter.notifyDataSetChanged();

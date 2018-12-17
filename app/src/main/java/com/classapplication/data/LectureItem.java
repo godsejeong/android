@@ -1,13 +1,59 @@
 package com.classapplication.data;
 
+import java.util.List;
+
 public class LectureItem {
     private String professor;
     private String lectureRoom;
     private String date;
     private String courseTitle;
     private String token;
-    private String img;
     private String professorToken;
+    private String category;
+    private int maxMember;
+    private String time;
+    private String term;
+    private int currentMember;
+
+    public int getCurrentMember() {
+        return currentMember;
+    }
+
+    public void setCurrentMember(int currentMember) {
+        this.currentMember = currentMember;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getMaxMember() {
+        return maxMember;
+    }
+
+    public void setMaxMember(int maxMember) {
+        this.maxMember = maxMember;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
 
     public String getProfessorToken() {
         return professorToken;
@@ -15,14 +61,6 @@ public class LectureItem {
 
     public void setProfessorToken(String professorToken) {
         this.professorToken = professorToken;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
     public String getToken() {

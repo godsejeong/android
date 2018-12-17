@@ -10,38 +10,40 @@ public class LectureExistCheck extends Thread {
     String mytoken;
     String lecuturetokrn;
     Boolean check = false;
+
     public LectureExistCheck(String mytoken, String lecuturetokrn) {
         this.lecuturetokrn = lecuturetokrn;
         this.mytoken = mytoken;
     }
 
-    retrofit2.Call<BasicData> res = new Utils().postservice.LectureExist(mytoken,lecuturetokrn);
+    retrofit2.Call<BasicData> res = new Utils().postservice.LectureExist(mytoken, lecuturetokrn);
 
     @Override
     public void run() {
-        super.run();
         try {
-            switch (res.execute().code()) {
-                case 200:
-                    check =  true;
-                    Log.e("ASDadf","200");
-                    break;
-                case 401:
-                    check =  false;
-                    Log.e("ASDadf","401");
-                    break;
-                default:
-                    check =  false;
-                    Log.e("ASDadf","sdafadf");
-                    break;
+            Log.e("asdf", "괴");
+            if (res.execute().code() == 401) {
+                check = true;
+                Log.e("ASDadf", "401");
+            } else if (res.execute().code() == 200) {
+                check = false;
+                Log.e("ASDadf", "200");
+            } else {
+                check = false;
+                Log.e("ASDadf", "sdafadf");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    } catch(
+    IOException e)
+    {
+        Log.e("ASDadf",e.getMessage());
+        e.printStackTrace();
     }
 
+}
 
-    public Boolean checkdata(){
+
+    public Boolean checkdata() {
+        Log.e("check", String.valueOf(check));
         return check;
     }
 
