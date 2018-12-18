@@ -92,7 +92,7 @@ public class LecutureInfoActivity extends AppCompatActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        adapter = new VideoAdapter(item);
+        adapter = new VideoAdapter(item,user.getToken());
         recyclerView.setAdapter(adapter);
 
         Call<VideoData> res = new Utils().postservice.VideoList(professor);
@@ -164,9 +164,9 @@ public class LecutureInfoActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<BasicData> call, Response<BasicData> response) {
                     if(response.code() == 401){
-                        Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
-                        intent.putExtra("mytoken",mytoken);
-                        intent.putExtra("lecturetoken",professor);
+                        Intent intent = new Intent(getApplicationContext(),ProgressActivity.class);
+                        intent.putExtra("lecuturetoken",professor);
+                        intent.putExtra("token",user.getToken());
                         startActivity(intent);
                     }else{
                         Log.e("codecode", String.valueOf(response.code()));

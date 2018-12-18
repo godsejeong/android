@@ -5,12 +5,22 @@ public class StudentListItem {
     private String token;
     private String attendance;
     private String mytoken;
+    private String LecutureToken;
 
-    public StudentListItem(String name,String token,String mytoken,String attendance){
+    public StudentListItem(String name,String token,String mytoken,String attendance,String LecutureToken){
         this.name = name;
         this.token = token;
         this.mytoken = mytoken;
         this.attendance = attendance;
+        this.LecutureToken = LecutureToken;
+    }
+
+    public String getLecutureToken() {
+        return LecutureToken;
+    }
+
+    public void setLecutureToken(String lecutureToken) {
+        LecutureToken = lecutureToken;
     }
 
     public String getMytoken() {

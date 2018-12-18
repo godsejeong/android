@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.classapplication.R;
 import com.classapplication.adapter.VideoAdapter;
 import com.classapplication.data.BasicData;
+import com.classapplication.data.UserData;
 import com.classapplication.data.VideoData;
 import com.classapplication.data.VideoItem;
 import com.classapplication.data.VideoListItem;
@@ -42,8 +43,10 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import ninja.sakib.pultusorm.core.PultusORM;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -57,7 +60,8 @@ public class LecuturePagerActivity extends AppCompatActivity {
     ArrayList<VideoListItem> item = new ArrayList<>();
     VideoAdapter adapter;
     File file;
-
+    UserData user;
+    PultusORM orm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +80,12 @@ public class LecuturePagerActivity extends AppCompatActivity {
         lecuturePagerMaxStudent = findViewById(R.id.lecuturePagerMaxStudent);
         lecuturePagerCurrentStudent = findViewById(R.id.lecuturePagerCurrentStudent);
         lecuturePagerPeriod = findViewById(R.id.lecuturePagerPeriod);
+
+        String path = getApplicationContext().getFilesDir().getAbsolutePath();
+        orm = new PultusORM("user.db", path);
+
+        List<Object> userlist = orm.find(new UserData());
+        user = (UserData) userlist.get(userlist.size() - 1);
 
         String token = getIntent().getStringExtra("token");
         String professorname = getIntent().getStringExtra("professorname");
@@ -98,7 +108,7 @@ public class LecuturePagerActivity extends AppCompatActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        adapter = new VideoAdapter(item);
+        adapter = new VideoAdapter(item,user.getToken());
         recyclerView.setAdapter(adapter);
 
         lecutureRemove.setOnClickListener(new View.OnClickListener() {

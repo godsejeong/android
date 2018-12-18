@@ -30,9 +30,10 @@ import retrofit2.Response;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
     ArrayList<VideoListItem> items = new ArrayList<>();
-
-    public VideoAdapter(ArrayList<VideoListItem> items){
+    String token;
+    public VideoAdapter(ArrayList<VideoListItem> items,String token){
         this.items = items;
+        this.token = token;
     }
 
     @Override
@@ -75,6 +76,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 }else {
                     Intent intent = new Intent(viewHolder.itemView.getContext(), VideoActivity.class);
                     intent.putExtra("videolink", data.getLink());
+                    intent.putExtra("check", data.isBl());
+                    intent.putExtra("token", token);
+                    intent.putExtra("lecuturetoken",data.getToken());
+
                     viewHolder.itemView.getContext().startActivity(intent);
                 }
             }

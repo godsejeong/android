@@ -1,5 +1,6 @@
 package com.classapplication.utils;
 
+import com.classapplication.data.AchiveData;
 import com.classapplication.data.BasicData;
 import com.classapplication.data.CalendarData;
 import com.classapplication.data.MyLectureData;
@@ -138,6 +139,16 @@ public interface Services {
     @FormUrlEncoded
     @POST("/getNet")
     Call<MyLectureData>getNet(@Field("token")String token);
+
+    @FormUrlEncoded
+    @POST("/upAchive")
+    Call<BasicData>upAchive(@Field("token")String token,
+                                @Field("lectureToken")String lectureToken);
+
+    @FormUrlEncoded
+    @POST("/returnAchive")
+    Call<AchiveData>returnAchive(@Field("token")String token,
+                                 @Field("lectureToken")String lectureToken);
 
 
 }

@@ -20,6 +20,7 @@ public class StudentAdapter extends BaseAdapter{
     ArrayList<StudentListItem> items = new ArrayList();
     String professor;
     String name_;
+
     public StudentAdapter( ArrayList<StudentListItem> items,String professor,String name){
         this.items = items;
         this.professor = professor;
@@ -61,6 +62,8 @@ public class StudentAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(parent.getContext(),ProgressActivity.class);
+                intent.putExtra("lecuturetoken",data.getLecutureToken());
+                intent.putExtra("token",data.getMytoken());
                 parent.getContext().startActivity(intent);
             }
         });

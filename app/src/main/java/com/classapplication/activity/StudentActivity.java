@@ -61,7 +61,7 @@ public class StudentActivity extends AppCompatActivity {
                     Log.e("asdfadf", new Gson().toJson(response.body().getList()));
 
                     for (int i = 0; i < response.body().getList().size(); i++) {
-                        item.add(new StudentListItem(response.body().getList().get(i).getName(), response.body().getList().get(i).getToken(),mytoken,"0"));
+                        item.add(new StudentListItem(response.body().getList().get(i).getName(), response.body().getList().get(i).getToken(),mytoken,"0",token));
                     }
 
                     adapter.notifyDataSetChanged();
