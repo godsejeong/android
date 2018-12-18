@@ -1,8 +1,10 @@
 package com.classapplication.activity;
 
 
+import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -102,27 +104,7 @@ public class LecuturePagerActivity extends AppCompatActivity {
         lecutureRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                retrofit2.Call<BasicData> res = new Utils().postservice.delLecture(token);
-                res.enqueue(new Callback<BasicData>() {
-                    @Override
-                    public void onResponse(Call<BasicData> call, Response<BasicData> response) {
-                        if(response.code() == 200){
-                            Toast.makeText(getApplicationContext(), "삭제에 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }else{
-                            Log.e("responsecode", String.valueOf(response.code()));
-                            Toast.makeText(getApplicationContext(), "삭제를 실패하였습니다.", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<BasicData> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
-                        Log.e("deleteError",t.getMessage());
-                    }
-                });
-
+              deleteshow(token);
             }
         });
 
@@ -224,6 +206,46 @@ public class LecuturePagerActivity extends AppCompatActivity {
 
 
         }
+    }
+
+
+
+    void deleteshow(String token)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("삭제하기");
+        builder.setMessage("삭제하시겠습니까?");
+
+        builder.setNegativeButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        retrofit2.Call<BasicData> res = new Utils().postservice.delLecture(token);
+                        res.enqueue(new Callback<BasicData>() {
+                            @Override
+                            public void onResponse(Call<BasicData> call, Response<BasicData> response) {
+                                if(response.code() == 200){
+                                    Toast.makeText(getApplicationContext(), "삭제에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }else{
+                                    Log.e("responsecode", String.valueOf(response.code()));
+                                    Toast.makeText(getApplicationContext(), "삭제를 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<BasicData> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
+                                Log.e("deleteError",t.getMessage());
+                            }
+                        });
+                    }
+                });
+        builder.setPositiveButton("아니요",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.show();
     }
 
     private void Upload(File file, RequestBody token) {

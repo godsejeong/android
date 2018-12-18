@@ -1,5 +1,8 @@
 package com.classapplication.adapter;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 
 import com.classapplication.R;
 import com.classapplication.activity.CalendarActivity;
+import com.classapplication.activity.LecuturePagerActivity;
 import com.classapplication.activity.VideoActivity;
 import com.classapplication.data.BasicData;
 import com.classapplication.data.VideoListItem;
@@ -59,25 +63,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<BasicData> res = new Utils().postservice.delVideo(data.getToken(),data.getTitle());
-                res.enqueue(new Callback<BasicData>() {
-                    @Override
-                    public void onResponse(Call<BasicData> call, Response<BasicData> response) {
-                        if(response.code() == 200){
-                            items.remove(i);
-                            notifyDataSetChanged();
-                        } else {
-                            Log.e("responsecode", String.valueOf(response.code()));
-                            Toast.makeText(viewHolder.itemView.getContext(), "동영상을 삭제하는데 문제가 발생하였습니다.", Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<BasicData> call, Throwable t) {
-                        Toast.makeText(viewHolder.itemView.getContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
-                        Log.e("lecuturevideoError",t.getMessage());
-                    }
-                });
+             deleteshow(data.getToken(),data.getTitle(),viewHolder.itemView.getContext(),i);
             }
         });
 
@@ -93,6 +79,44 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 }
             }
         });
+    }
+
+    void deleteshow(String token,String title,Context context,int position)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("삭제하기");
+        builder.setMessage("삭제하시겠습니까?");
+        builder.setPositiveButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.setNegativeButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Call<BasicData> res = new Utils().postservice.delVideo(token,title);
+                        res.enqueue(new Callback<BasicData>() {
+                            @Override
+                            public void onResponse(Call<BasicData> call, Response<BasicData> response) {
+                                if(response.code() == 200){
+                                    items.remove(position);
+                                    notifyDataSetChanged();
+                                } else {
+                                    Log.e("responsecode", String.valueOf(response.code()));
+                                    Toast.makeText(context, "동영상을 삭제하는데 문제가 발생하였습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<BasicData> call, Throwable t) {
+                                Toast.makeText(context, "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
+                                Log.e("lecuturevideoError",t.getMessage());
+                            }
+                        });
+                    }
+                });
+        builder.show();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

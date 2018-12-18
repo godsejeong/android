@@ -3,6 +3,7 @@ package com.classapplication.adapter;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,24 +27,26 @@ public class LecutureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView dayTv, NameTv;
+        TextView lecutureNameTv, lecutureTime, lecutureMember, lecutureIndex;
 
         MyViewHolder(View view) {
             super(view);
-            dayTv = view.findViewById(R.id.mylecuturedayTv);
-            NameTv = view.findViewById(R.id.mylecutureNameTv);
+            lecutureNameTv = view.findViewById(R.id.lecutureNameTv);
+            lecutureTime = view.findViewById(R.id.lecutureTime);
+            lecutureMember = view.findViewById(R.id.lecutureMember);
+            lecutureIndex = view.findViewById(R.id.lecutureIndex);
         }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView professorTv, roomTv, dayTv, NameTv;
+        TextView lecutureNameTv, lecutureTime, lecutureMember, lecutureIndex;
 
         ViewHolder(View view) {
             super(view);
-            professorTv = view.findViewById(R.id.lecutureprofessorTv);
-            roomTv = view.findViewById(R.id.lecutureRoomTv);
-            dayTv = view.findViewById(R.id.lecuturedayTv);
-            NameTv = view.findViewById(R.id.lecutureNameTv);
+            lecutureNameTv = view.findViewById(R.id.lecutureNameTv);
+            lecutureTime = view.findViewById(R.id.lecutureTime);
+            lecutureMember = view.findViewById(R.id.lecutureMember);
+            lecutureIndex = view.findViewById(R.id.lecutureIndex);
         }
     }
 
@@ -64,7 +67,7 @@ public class LecutureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.lecuture_item, viewGroup, false);
             return new ViewHolder(view);
         } else if (i == 1) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_lecuture_item, viewGroup, false);
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.lecuture_item, viewGroup, false);
             return new MyViewHolder(view);
         } else {
             return new ViewHolder(view);
@@ -80,10 +83,10 @@ public class LecutureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (viewHolder.getItemViewType()) {
             case 0:
                 final LecutureAdapter.ViewHolder holder = (ViewHolder) viewHolder;
-                holder.dayTv.setText(data.getDate());
-                holder.roomTv.setText(data.getCategory());
-                holder.professorTv.setText(data.getProfessor());
-                holder.NameTv.setText(data.getCourseTitle());
+                holder.lecutureTime.setText("(" + data.getDate() + ") " + "(" + data.getTime() + ") " + data.getTerm());
+                holder.lecutureIndex.setText(String.valueOf(data.getIndex()));
+                holder.lecutureMember.setText(String.valueOf(data.getCurrentMember()));
+                holder.lecutureNameTv.setText(data.getCourseTitle());
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -109,8 +112,11 @@ public class LecutureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 break;
             case 1:
                 final LecutureAdapter.MyViewHolder myholder = (MyViewHolder) viewHolder;
-                myholder.dayTv.setText(data.getDate());
-                myholder.NameTv.setText(data.getCourseTitle());
+                myholder.lecutureTime.setText("(" + data.getDate() + ")" + "(" + data.getTime() + ") " + data.getTerm());
+                myholder.lecutureIndex.setText(String.valueOf(data.getIndex()));
+                myholder.lecutureMember.setText(String.valueOf(data.getCurrentMember()));
+                myholder.lecutureNameTv.setText(data.getCourseTitle());
+
                 myholder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

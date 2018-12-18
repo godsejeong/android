@@ -273,7 +273,7 @@
                 android:id="@+id/infoAttendance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="출결"
+                android:text="진행사항"
                 android:textSize="15sp" />
 
             <Button

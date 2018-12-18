@@ -1,5 +1,7 @@
 package com.classapplication.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -142,6 +144,7 @@ public class LecutureInfoActivity extends AppCompatActivity {
         });
 
 
+
         btn1.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
             intent.putExtra("name", user.getName());
@@ -182,28 +185,48 @@ public class LecutureInfoActivity extends AppCompatActivity {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<BasicData> res = new Utils().postservice.leaveLecture(professor, mytoken);
-                res.enqueue(new Callback<BasicData>() {
-                    @Override
-                    public void onResponse(Call<BasicData> call, Response<BasicData> response) {
-                        if (response.code() == 200) {
-                            Toast.makeText(getApplicationContext(), "강의 탈퇴가 완료되었습니다.", Toast.LENGTH_LONG).show();
-                            finish();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
-                            Log.e("code", String.valueOf(response.code()));
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<BasicData> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
-                        Log.e("leaveLectureError", t.getMessage());
-                    }
-                });
+                deleteshow(professor,mytoken);
             }
         });
 
+    }
+
+    void deleteshow(String professortoken,String token)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("탈퇴하기");
+        builder.setMessage("탈퇴하시겠습니까?");
+
+        builder.setNegativeButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Call<BasicData> res = new Utils().postservice.leaveLecture(professortoken,token);
+                        res.enqueue(new Callback<BasicData>() {
+                            @Override
+                            public void onResponse(Call<BasicData> call, Response<BasicData> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(getApplicationContext(), "강의 탈퇴가 완료되었습니다.", Toast.LENGTH_LONG).show();
+                                    finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
+                                    Log.e("code", String.valueOf(response.code()));
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<BasicData> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(), "네트워크를 확인해주세요!", Toast.LENGTH_LONG).show();
+                                Log.e("leaveLectureError", t.getMessage());
+                            }
+                        });
+                    }
+                });
+        builder.setPositiveButton("아니요",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.show();
     }
 
     void lecutruejoin() {

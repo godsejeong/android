@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.classapplication.R;
 import com.classapplication.activity.ChatActivity;
+import com.classapplication.activity.ProgressActivity;
 import com.classapplication.data.StudentListItem;
 
 import java.util.ArrayList;
@@ -47,10 +48,10 @@ public class StudentAdapter extends BaseAdapter{
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_list_item, parent, false);
         }
 
-        Button btn1 = convertView.findViewById(R.id.studentBtn1);
-        Button btn2 = convertView.findViewById(R.id.studentBtn2);
+        Button btn1 = convertView.findViewById(R.id.studentProgress);
+//        Button btn2 = convertView.findViewById(R.id.studentBtn2);
         Button btn3 = convertView.findViewById(R.id.studentBtn3);
-        Button btn4 = convertView.findViewById(R.id.studentBtn4);
+//        Button btn4 = convertView.findViewById(R.id.studentBtn4);
 
         final TextView name = convertView.findViewById(R.id.studentTv);
         final StudentListItem data = items.get(position);
@@ -59,23 +60,24 @@ public class StudentAdapter extends BaseAdapter{
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check(position,"1");
+                Intent intent = new Intent(parent.getContext(),ProgressActivity.class);
+                parent.getContext().startActivity(intent);
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                check(position,"0");
-            }
-        });
-
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                check(position,"2");
-            }
-        });
+//        btn2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                check(position,"0");
+//            }
+//        });
+//
+//        btn4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                check(position,"2");
+//            }
+//        });
 
         btn3.setOnClickListener(new View.OnClickListener() {
 

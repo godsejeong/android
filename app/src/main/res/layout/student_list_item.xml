@@ -20,30 +20,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/studentBtn1"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:text="출석"/>
+        <!--<Button-->
+            <!--android:id="@+id/studentBtn1"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="출석"/>-->
 
 
+        <!--<Button-->
+            <!--android:id="@+id/studentBtn2"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:text="결석"/>-->
+
         <Button
-            android:id="@+id/studentBtn2"
-            android:layout_width="70dp"
+            android:id="@+id/studentProgress"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="결석"/>
-
-        <Button
-            android:id="@+id/studentBtn4"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="지각"/>
+            android:text="진행사항"/>
 
         <Button
             android:id="@+id/studentBtn3"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="채팅하기"/>

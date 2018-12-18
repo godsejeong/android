@@ -13,8 +13,9 @@ public class LectureListData {
     private String time;
     private String term;
     private int currentMember;
+    private int index;
 
-    public LectureListData(String courseTitle, String date, String category, String professor, String token, String time, int maxMember, String term, String studentToken, String professorToken, int currentMember, boolean viewtype) {
+    public LectureListData(String courseTitle, String date, String category, String professor, String token, String time, int maxMember, String term, String studentToken, String professorToken, int currentMember,int index, boolean viewtype) {
         this.courseTitle = courseTitle;
         this.date = date;
         this.category = category;
@@ -24,9 +25,18 @@ public class LectureListData {
         this.currentMember = currentMember;
         this.studentToken = studentToken;
         this.time =time;
+        this.index = index;
         this.maxMember = maxMember;
         this.term = term;
         this.professorToken = professorToken;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public int getMaxMember() {

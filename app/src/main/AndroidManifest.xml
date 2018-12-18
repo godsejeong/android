@@ -54,7 +54,8 @@
             android:theme="@style/NoActionBar" />
         <activity android:name=".activity.LecuturePagerActivity" />
         <activity android:name=".activity.VideoActivity" />
-        <activity android:name=".activity.LecutureAddActivity"></activity>
+        <activity android:name=".activity.LecutureAddActivity" />
+        <activity android:name=".activity.ProgressActivity"></activity>
     </application>
 
 </manifest>

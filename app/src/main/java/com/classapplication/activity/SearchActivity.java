@@ -77,7 +77,6 @@ public class SearchActivity extends AppCompatActivity {
                                 Log.e("ASdfasdf", new Gson().toJson(obj.getList()));
 
                                 for (int i = 0; i < obj.getList().size(); i++) {
-
                                     items.add(new LectureListData(
                                             obj.getList().get(i).getCourseTitle(),
                                             obj.getList().get(i).getDate(),
@@ -90,6 +89,7 @@ public class SearchActivity extends AppCompatActivity {
                                             user.getToken(),
                                             obj.getList().get(i).getProfessorToken(),
                                             obj.getList().get(i).getCurrentMember(),
+                                            i+1,
                                             true));
                                 }
                                 adapter.notifyDataSetChanged();

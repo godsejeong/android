@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<MyLectureData> call, Response<MyLectureData> response) {
                     MyLectureData obj = response.body();
                     for (int i = 0; i < obj.getList().size(); i++) {
+                        Log.e("i", String.valueOf(i+1));
                         items.add(new LectureListData(
                                 obj.getList().get(i).getCourseTitle(),
                                 obj.getList().get(i).getDate(),
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                                 user.getToken(),
                                 obj.getList().get(i).getProfessorToken(),
                                 obj.getList().get(i).getCurrentMember(),
+                                i+1,
                                 false));
                     }
                     adapter.notifyDataSetChanged();
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         for (int i = 0; i < obj.getList().size(); i++) {
+                            Log.e("i", String.valueOf(i));
                             items.add(new LectureListData(
                                     obj.getList().get(i).getCourseTitle(),
                                     obj.getList().get(i).getDate(),
@@ -112,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                     user.getToken(),
                                     obj.getList().get(i).getProfessorToken(),
                                     obj.getList().get(i).getCurrentMember(),
+                                    i+1,
                                     true));
                         }
                         adapter.notifyDataSetChanged();
@@ -164,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                                     user.getToken(),
                                     obj.getList().get(i).getProfessorToken(),
                                     obj.getList().get(i).getCurrentMember(),
+                                    i+1,
                                     true));
                         }
                         adapter.notifyDataSetChanged();
@@ -201,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                                     user.getToken(),
                                     obj.getList().get(i).getProfessorToken(),
                                     obj.getList().get(i).getCurrentMember(),
+                                    i+1,
                                     true));
                         }
                         adapter.notifyDataSetChanged();
@@ -238,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
                                     user.getToken(),
                                     obj.getList().get(i).getProfessorToken(),
                                     obj.getList().get(i).getCurrentMember(),
+                                    i+1,
                                     true));
                         }
                         adapter.notifyDataSetChanged();
@@ -275,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
                                 user.getToken(),
                                 obj.getList().get(i).getProfessorToken(),
                                 obj.getList().get(i).getCurrentMember(),
+                                i+1,
                                 true));
                     }
                     adapter.notifyDataSetChanged();
