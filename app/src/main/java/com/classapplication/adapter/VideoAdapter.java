@@ -77,6 +77,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                     Intent intent = new Intent(viewHolder.itemView.getContext(), VideoActivity.class);
                     intent.putExtra("videolink", data.getLink());
                     intent.putExtra("check", data.isBl());
+                    intent.putExtra("title", data.getTitle());
                     intent.putExtra("token", token);
                     intent.putExtra("lecuturetoken",data.getToken());
 

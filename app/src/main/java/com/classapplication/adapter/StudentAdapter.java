@@ -63,7 +63,7 @@ public class StudentAdapter extends BaseAdapter{
             public void onClick(View v) {
                 Intent intent = new Intent(parent.getContext(),ProgressActivity.class);
                 intent.putExtra("lecuturetoken",data.getLecutureToken());
-                intent.putExtra("token",data.getMytoken());
+                intent.putExtra("token",data.getToken());
                 parent.getContext().startActivity(intent);
             }
         });

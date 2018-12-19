@@ -27,12 +27,13 @@ public class VideoActivity extends AppCompatActivity {
         infoVideo = findViewById(R.id.infoVideo);
 
         String link = getIntent().getStringExtra("videolink");
+        String title = getIntent().getStringExtra("title");
         String token = getIntent().getStringExtra("token");
         String lecuturetoken = getIntent().getStringExtra("lecuturetoken");
         boolean check = getIntent().getBooleanExtra("check",false);
 
         if(!check){
-            Call<BasicData> res = new Utils().postservice.upAchive(token,lecuturetoken);
+            Call<BasicData> res = new Utils().postservice.upAchive(token,lecuturetoken,title);
             res.enqueue(new Callback<BasicData>() {
                 @Override
                 public void onResponse(Call<BasicData> call, Response<BasicData> response) {
