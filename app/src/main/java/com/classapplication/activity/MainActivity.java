@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<MyLectureData> call, Response<MyLectureData> response) {
                     MyLectureData obj = response.body();
+                    Log.e("testtest", new Gson().toJson(obj.getList()));
                     for (int i = 0; i < obj.getList().size(); i++) {
                         Log.e("i", String.valueOf(i+1));
                         items.add(new LectureListData(

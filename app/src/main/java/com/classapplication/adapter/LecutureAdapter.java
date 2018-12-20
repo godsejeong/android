@@ -88,6 +88,8 @@ public class LecutureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 holder.lecutureMember.setText(String.valueOf(data.getCurrentMember()));
                 holder.lecutureNameTv.setText(data.getCourseTitle());
 
+                Log.e("data.getCurrentMember()", String.valueOf(data.getCurrentMember()));
+
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
